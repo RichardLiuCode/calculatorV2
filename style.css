@@ -1,0 +1,25 @@
+.btn {
+    width: 60px;
+    height: 30px;
+    background-color: aliceblue;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(196, 194, 194);
+    border-radius: 14px;
+    box-shadow: 0 0 4px 1px lightgray;
+}
+
+.btn:active {
+    background-color: rgb(228, 229, 230)
+}
+
+.btnRowsCintainer {
+    width: 330px;
+    height: 35px;
+    background-color: red;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
