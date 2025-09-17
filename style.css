@@ -13,7 +13,8 @@
     background-color: rgb(228, 229, 230)
 }
 
-.btnRowsCintainer {
+.btnRowsCintainer,
+.top_boxContainer {
     width: 330px;
     height: 35px;
     background-color: red;
@@ -22,4 +23,15 @@
     align-items: center;
     justify-content: center;
     gap: 5px;
+}
+
+#top_box {
+    width: 313px;
+    height: 30px;
+    background-color: aliceblue;
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgb(196, 194, 194);
+    border-radius: 14px;
+    box-shadow: 0 0 4px 1px lightgray;
 }
