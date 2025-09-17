@@ -1,11 +1,37 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(246, 244, 244)
+}
+
+.calculatorElement {
+    width: 430px;
+    height: 270px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px 4px rgb(214, 212, 212);
+}
+
+.calculatorContainer {
+    display: revert;
+}
+
 .btn {
-    width: 60px;
-    height: 30px;
+    width: 75px;
+    height: 32px;
     background-color: aliceblue;
     border-style: solid;
     border-width: 1px;
     border-color: rgb(196, 194, 194);
-    border-radius: 14px;
+    border-radius: 18px;
     box-shadow: 0 0 4px 1px lightgray;
 }
 
@@ -15,23 +41,36 @@
 
 .btnRowsCintainer,
 .top_boxContainer {
-    width: 330px;
+    width: 410px;
     height: 35px;
-    background-color: red;
-    margin-bottom: 2px;
+    background: none;
+    margin-top: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
 }
 
+.top_boxContainer {
+    margin-bottom: 20px;
+}
+
 #top_box {
-    width: 313px;
+    width: 390px;
     height: 30px;
     background-color: aliceblue;
     border-style: solid;
-    border-width: 1px;
-    border-color: rgb(196, 194, 194);
-    border-radius: 14px;
-    box-shadow: 0 0 4px 1px lightgray;
+    border-width: 2px;
+    border-color: rgb(140, 139, 161);
+    border-radius: 5px;
+    box-shadow: 0 0 4px 1px gray;
+    text-align: right;
+    font-size: 20px;
+    padding-right: 7px;
+}
+
+#top_box:focus {
+    border-color: rgb(95, 84, 253);
+    outline: none;
+    box-shadow: 0 0 4px 1px rgb(95, 84, 253);
 }
