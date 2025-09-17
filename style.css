@@ -33,6 +33,7 @@ body {
     border-color: rgb(196, 194, 194);
     border-radius: 18px;
     box-shadow: 0 0 4px 1px lightgray;
+    font-size: 18px;
 }
 
 .btn:active {
