@@ -110,6 +110,8 @@ document.getElementById("equal").addEventListener("click", function () {
             }
         }
         inputText = inputText.split("|")
+
+        // Calculating root
         for (let i = 0; i < inputText.length; i = i + 1) {
             if (inputText[i].includes("√")) {
                 if (inputText[i].substring(0, 1) == "√") {
