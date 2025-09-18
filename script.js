@@ -1,5 +1,7 @@
 import { backspace } from "./backspace.js"
 import { filterEvalText } from "./filter.js"
+import { getPreviousDigget, getNextDigget } from "./diggetProcess.js";
+
 const topbox = document.getElementById("top_box")
 let inputText = "";
 function addDigget(newNumber) {
@@ -85,7 +87,18 @@ document.getElementById("equal").addEventListener("click", function () {
         while (inputText.includes("÷")) {
             inputText = inputText.replace("÷", "/")
         }
-        topbox.value = eval(inputText);
+        while (inputText.includes("𝜋")) {
+            inputText = inputText.replace("𝜋", "3.141592654")
+        }
+        for (let i = 0; i < inputText.length; i++) {
+            if (inputText[i] == "+") {
+                if ((getPreviousDigget(i) != "|") && (getNextDigget(i) != "|")) {
+                    inputText[i] = "|+|";
+                }
+            }
+        }
+        console.log(inputText)
+        // topbox.value = eval(inputText);
     }
     catch (error) {
         topbox.value = "Error: " + error;
@@ -95,7 +108,6 @@ document.getElementById("equal").addEventListener("click", function () {
 // Keyboard
 
 topbox.addEventListener("keydown", function (e) {
-    console.log(e.key);
     if (e.key == "1") {
         document.getElementById("1").click();
     } else if (e.key == ("2")) {
