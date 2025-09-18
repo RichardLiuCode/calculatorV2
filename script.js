@@ -67,6 +67,9 @@ document.getElementById("%").addEventListener("click", function () {
 });
 document.getElementById("pie").addEventListener("click", function () {
     addDigget("𝜋");
+});
+document.getElementById("root").addEventListener("click", function () {
+    addDigget("√");
 })
 document.getElementById("ac").addEventListener("click", function () {
     document.getElementById("top_box").value = ""
@@ -92,12 +95,34 @@ document.getElementById("equal").addEventListener("click", function () {
         }
         for (let i = 0; i < inputText.length; i++) {
             if (inputText[i] == "+") {
-                if ((getPreviousDigget(i) != "|") && (getNextDigget(i) != "|")) {
-                    inputText[i] = "|+|";
+                if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
+                    inputText = inputText.substring(0, i) + "|+|" + inputText.substring(i + 1, inputText.length)
+                    inputText = inputText.replace("||", "|")
+                }
+            }
+        }
+        for (let i = 0; i < inputText.length; i++) {
+            if (inputText[i] == "-") {
+                if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
+                    inputText = inputText.substring(0, i) + "|-|" + inputText.substring(i + 1, inputText.length)
+                    inputText = inputText.replace("||", "|");
+                }
+            }
+        }
+        inputText = inputText.split("|")
+        for (let i = 0; i < inputText.length; i = i + 1) {
+            if (inputText[i].includes("√")) {
+                if (inputText[i].substring(0, 1) == "√") {
+                    inputText[i] = inputText[i].replace("√", "");
+                    inputText[i] = Math.sqrt(inputText[i]).toString();
+                } else {
+                    throw new Error("Numbers should be in front of the root");
                 }
             }
         }
         console.log(inputText)
+
+
         // topbox.value = eval(inputText);
     }
     catch (error) {
