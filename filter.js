@@ -20,5 +20,5 @@ export function filterEvalText(text) {
     while (text.includes("setInterval(")) {
         text = text.replace("setInterval(", "")
     }
-    return text;
+    return text
 }
