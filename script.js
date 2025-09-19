@@ -1,6 +1,7 @@
 import { backspace } from "./backspace.js"
 import { filterEvalText } from "./filter.js"
 import { getPreviousDigget, getNextDigget } from "./diggetProcess.js";
+import { factorial } from "./calculatingFunctions.js";
 
 const topbox = document.getElementById("top_box")
 let inputText = "";
@@ -70,66 +71,15 @@ document.getElementById("pie").addEventListener("click", function () {
 });
 document.getElementById("root").addEventListener("click", function () {
     addDigget("√");
-})
+});
+document.getElementById("factorial").addEventListener("click", function () {
+    addDigget("!");
+});
 document.getElementById("ac").addEventListener("click", function () {
     document.getElementById("top_box").value = ""
 });
 document.getElementById("backspace").addEventListener("click", function () {
     topbox.value = backspace(topbox.value);
-})
-
-// Calaulate
-
-document.getElementById("equal").addEventListener("click", function () {
-    try {
-        inputText = topbox.value;
-        inputText = filterEvalText(inputText)
-        while (inputText.includes("×")) {
-            inputText = inputText.replace("×", "*")
-        }
-        while (inputText.includes("÷")) {
-            inputText = inputText.replace("÷", "/")
-        }
-        while (inputText.includes("𝜋")) {
-            inputText = inputText.replace("𝜋", "3.141592654")
-        }
-        for (let i = 0; i < inputText.length; i++) {
-            if (inputText[i] == "+") {
-                if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
-                    inputText = inputText.substring(0, i) + "|+|" + inputText.substring(i + 1, inputText.length)
-                    inputText = inputText.replace("||", "|")
-                }
-            }
-        }
-        for (let i = 0; i < inputText.length; i++) {
-            if (inputText[i] == "-") {
-                if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
-                    inputText = inputText.substring(0, i) + "|-|" + inputText.substring(i + 1, inputText.length)
-                    inputText = inputText.replace("||", "|");
-                }
-            }
-        }
-        inputText = inputText.split("|")
-
-        // Calculating root
-        for (let i = 0; i < inputText.length; i = i + 1) {
-            if (inputText[i].includes("√")) {
-                if (inputText[i].substring(0, 1) == "√") {
-                    inputText[i] = inputText[i].replace("√", "");
-                    inputText[i] = Math.sqrt(inputText[i]).toString();
-                } else {
-                    throw new Error("Numbers should be in front of the root");
-                }
-            }
-        }
-        console.log(inputText)
-
-
-        // topbox.value = eval(inputText);
-    }
-    catch (error) {
-        topbox.value = "Error: " + error;
-    }
 })
 
 // Keyboard
@@ -167,6 +117,10 @@ topbox.addEventListener("keydown", function (e) {
         document.getElementById("(").click();
     } else if (e.key == ")") {
         document.getElementById(")").click();
+    } else if (e.key == "!") {
+        document.getElementById("factorial").click();
+    } else if (e.key == "%") {
+        document.getElementById("%").click();
     } else if (e.key == "=") {
         document.getElementById("equal").click();
     } else if (e.key == "Enter") {
@@ -176,4 +130,113 @@ topbox.addEventListener("keydown", function (e) {
     } else if (e.key == "Backspace") {
         document.getElementById("backspace").click();
     }
+});
+
+// Calaulate
+
+document.getElementById("equal").addEventListener("click", function () {
+    try {
+        inputText = topbox.value;
+        inputText = filterEvalText(inputText)
+        while (inputText.includes("×")) {
+            inputText = inputText.replace("×", "*")
+        }
+        while (inputText.includes("÷")) {
+            inputText = inputText.replace("÷", "/")
+        }
+        while (inputText.includes("𝜋")) {
+            inputText = inputText.replace("𝜋", "3.141592654")
+        }
+        if (!(inputText.includes("(")) && !(inputText.includes(")"))) {
+
+            // Process plus sign
+            for (let i = 0; i < inputText.length; i++) {
+                if (inputText[i] == "+") {
+                    if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
+                        inputText = inputText.substring(0, i) + "|+|" + inputText.substring(i + 1, inputText.length)
+                        inputText = inputText.replace("||", "|")
+                    }
+                }
+            }
+
+            // Process minus sign
+            for (let i = 0; i < inputText.length; i++) {
+                if (inputText[i] == "-") {
+                    if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
+                        inputText = inputText.substring(0, i) + "|-|" + inputText.substring(i + 1, inputText.length)
+                        inputText = inputText.replace("||", "|");
+                    }
+                }
+            }
+
+            // Process times sign
+            for (let i = 0; i < inputText.length; i++) {
+                if (inputText[i] == "*") {
+                    if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
+                        inputText = inputText.substring(0, i) + "|*|" + inputText.substring(i + 1, inputText.length)
+                        inputText = inputText.replace("||", "|");
+                    }
+                }
+            }
+
+            // Process divide sign
+            for (let i = 0; i < inputText.length; i++) {
+                if (inputText[i] == "/") {
+                    if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
+                        inputText = inputText.substring(0, i) + "|/|" + inputText.substring(i + 1, inputText.length)
+                        inputText = inputText.replace("||", "|");
+                    }
+                }
+            }
+
+            inputText = inputText.split("|")
+
+            // convert precent to decimal
+            for (let i = 0; i < inputText.length; i = i + 1) {
+                if ((inputText[i].includes("%")) && (inputText[i].substring(inputText[i].length - 1, inputText[i].length) == "%")) {
+                    inputText[i] = inputText[i].replace("%", "");
+                    inputText[i] = parseFloat(inputText[i]) * 0.01;
+                    inputText[i] = inputText[i].toString();
+                }
+            }
+
+            // Calculating root
+            for (let i = 0; i < inputText.length; i = i + 1) {
+                if (inputText[i].includes("√")) {
+                    if (inputText[i].substring(0, 1) == "√") {
+                        inputText[i] = inputText[i].replace("√", "");
+                        inputText[i] = Math.sqrt(inputText[i]).toString();
+                    } else {
+                        throw new Error("Numbers should be in front of the root");
+                    }
+                }
+            }
+
+            // Calculating factorial
+            for (let i = 0; i < inputText.length; i = i + 1) {
+                if (inputText[i].includes("!")) {
+                    if (true) {
+                        inputText[i] = inputText[i].replace("!", "");
+                        inputText[i] = factorial(inputText[i]).toString();
+                    } else {
+                        throw new Error("Numbers should be in front of the root");
+                    }
+                }
+            }
+
+            // Convert list back to text
+            inputText = inputText.join("")
+            console.log(inputText)
+
+            //Calculate the text
+            topbox.value = eval(inputText);
+        } else {
+            console.log("The Math Problem includes brackets")
+        }
+
+    }
+    catch (error) {
+        topbox.value = "Error: " + error;
+    }
 })
+
