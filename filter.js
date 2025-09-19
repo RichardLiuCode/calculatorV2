@@ -41,6 +41,12 @@ export function filterEvalText(text) {
     while (text.includes("'")) {
         text = text.replace("'", "")
     }
+    while (text.includes("`")) {
+        text = text.replace("`", "")
+    }
+    while (text.includes("~")) {
+        text = text.replace("~", "")
+    }
     while (text.includes("a")) {
         text = text.replace("a", "")
     }
