@@ -1,3 +1,4 @@
+// Filter the eval text 
 export function filterEvalText(text) {
     while (text.includes("document.")) {
         text = text.replace("document.", "")
