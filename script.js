@@ -152,8 +152,10 @@ document.getElementById("equal").addEventListener("click", function () {
         }
         if (!(inputText.includes("(")) && !(inputText.includes(")"))) {
             topbox.value = calculate(inputText);
+        } else if ((inputText.includes("(")) && (inputText.includes(")")) && !(inputText.includes("!")) && !(inputText.includes("^")) && !(inputText.includes("√"))) {
+            topbox.value = eval(inputText);
         } else {
-            console.log("The Math Problem includes brackets")
+            console.log("Cannot calculate the Math Problem");
         }
     }
     catch (error) {
