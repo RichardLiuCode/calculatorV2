@@ -1,7 +1,7 @@
 import { backspace } from "./backspace.js"
 import { filterEvalText } from "./filter.js"
-import { getPreviousDigget, getNextDigget } from "./diggetProcess.js";
-import { factorial } from "./calculatingFunctions.js";
+import { calculate } from "./Process.js";
+
 
 const topbox = document.getElementById("top_box")
 let inputText = "";
@@ -148,92 +148,10 @@ document.getElementById("equal").addEventListener("click", function () {
             inputText = inputText.replace("𝜋", "3.141592654")
         }
         if (!(inputText.includes("(")) && !(inputText.includes(")"))) {
-
-            // Process plus sign
-            for (let i = 0; i < inputText.length; i++) {
-                if (inputText[i] == "+") {
-                    if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
-                        inputText = inputText.substring(0, i) + "|+|" + inputText.substring(i + 1, inputText.length)
-                        inputText = inputText.replace("||", "|")
-                    }
-                }
-            }
-
-            // Process minus sign
-            for (let i = 0; i < inputText.length; i++) {
-                if (inputText[i] == "-") {
-                    if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
-                        inputText = inputText.substring(0, i) + "|-|" + inputText.substring(i + 1, inputText.length)
-                        inputText = inputText.replace("||", "|");
-                    }
-                }
-            }
-
-            // Process times sign
-            for (let i = 0; i < inputText.length; i++) {
-                if (inputText[i] == "*") {
-                    if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
-                        inputText = inputText.substring(0, i) + "|*|" + inputText.substring(i + 1, inputText.length)
-                        inputText = inputText.replace("||", "|");
-                    }
-                }
-            }
-
-            // Process divide sign
-            for (let i = 0; i < inputText.length; i++) {
-                if (inputText[i] == "/") {
-                    if (!(getPreviousDigget(inputText, i) == "|") && !(getNextDigget(inputText, i) == "|")) {
-                        inputText = inputText.substring(0, i) + "|/|" + inputText.substring(i + 1, inputText.length)
-                        inputText = inputText.replace("||", "|");
-                    }
-                }
-            }
-
-            inputText = inputText.split("|")
-
-            // convert precent to decimal
-            for (let i = 0; i < inputText.length; i = i + 1) {
-                if ((inputText[i].includes("%")) && (inputText[i].substring(inputText[i].length - 1, inputText[i].length) == "%")) {
-                    inputText[i] = inputText[i].replace("%", "");
-                    inputText[i] = parseFloat(inputText[i]) * 0.01;
-                    inputText[i] = inputText[i].toString();
-                }
-            }
-
-            // Calculating root
-            for (let i = 0; i < inputText.length; i = i + 1) {
-                if (inputText[i].includes("√")) {
-                    if (inputText[i].substring(0, 1) == "√") {
-                        inputText[i] = inputText[i].replace("√", "");
-                        inputText[i] = Math.sqrt(inputText[i]).toString();
-                    } else {
-                        throw new Error("Numbers should be in front of the root");
-                    }
-                }
-            }
-
-            // Calculating factorial
-            for (let i = 0; i < inputText.length; i = i + 1) {
-                if (inputText[i].includes("!")) {
-                    if (true) {
-                        inputText[i] = inputText[i].replace("!", "");
-                        inputText[i] = factorial(inputText[i]).toString();
-                    } else {
-                        throw new Error("Numbers should be in front of the root");
-                    }
-                }
-            }
-
-            // Convert list back to text
-            inputText = inputText.join("")
-            console.log(inputText)
-
-            //Calculate the text
-            topbox.value = eval(inputText);
+            topbox.value = calculate(inputText);
         } else {
             console.log("The Math Problem includes brackets")
         }
-
     }
     catch (error) {
         topbox.value = "Error: " + error;
