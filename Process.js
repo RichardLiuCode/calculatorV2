@@ -67,7 +67,16 @@ export function calculate(input) {
             input[i] = input[i].toString();
         }
     }
-
+    // Calculating power
+    for (let i = 0; i < input.length; i = i + 1) {
+        if (input[i].includes("^")) {
+            input[i] = input[i].split("^");
+            if (input[i].length <= 2) {
+                input[i] = Math.pow(input[i][0], input[i][1])
+                input[i] = input[i].toString();
+            }
+        }
+    }
     // Calculating root
     for (let i = 0; i < input.length; i = i + 1) {
         if (input[i].includes("√")) {

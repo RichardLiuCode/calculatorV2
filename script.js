@@ -72,6 +72,9 @@ document.getElementById("pie").addEventListener("click", function () {
 document.getElementById("root").addEventListener("click", function () {
     addDigget("√");
 });
+document.getElementById("pow").addEventListener("click", function () {
+    addDigget("^");
+});
 document.getElementById("factorial").addEventListener("click", function () {
     addDigget("!");
 });
@@ -154,7 +157,7 @@ document.getElementById("equal").addEventListener("click", function () {
         }
     }
     catch (error) {
-        topbox.value = "Error: " + error;
+        topbox.value = error;
     }
 })
 
