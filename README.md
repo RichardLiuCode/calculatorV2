@@ -7,4 +7,4 @@ This is a calculator app
 - Calculate power
 - Calculate math problems with brackets
 ## Visit site
-https://richardliucode.github.io/calculatorv2
+https://richardliucode.github.io/calculatorV2
