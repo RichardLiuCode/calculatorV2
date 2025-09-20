@@ -150,13 +150,15 @@ document.getElementById("equal").addEventListener("click", function () {
         while (inputText.includes("𝜋")) {
             inputText = inputText.replace("𝜋", "3.141592654")
         }
-        if (!(inputText.includes("(")) && !(inputText.includes(")"))) {
-            topbox.value = calculate(inputText);
-        } else if ((inputText.includes("(")) && (inputText.includes(")")) && !(inputText.includes("!")) && !(inputText.includes("^")) && !(inputText.includes("√"))) {
-            topbox.value = eval(inputText);
-        } else {
-            console.log("Cannot calculate the Math Problem");
+        while (inputText.includes("(")) {
+            let lastOpened = inputText.lastIndexOf("(");
+            let firstClosed = inputText.indexOf(")", lastOpened)
+            let innerText = inputText.substring(lastOpened + 1, firstClosed);
+            let result = calculate(innerText);
+            console.log(result);
+            inputText = inputText.substring(0, lastOpened) + result + inputText.substring(firstClosed + 1);
         }
+        topbox.value = calculate(inputText);
     }
     catch (error) {
         topbox.value = error;

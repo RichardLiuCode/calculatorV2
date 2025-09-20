@@ -103,7 +103,6 @@ export function calculate(input) {
 
     // Convert list back to text
     input = input.join("")
-    console.log(input);
 
     //Calculate the text
     return eval(input);
